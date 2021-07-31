@@ -7,8 +7,20 @@
   <groupId>Selenium1</groupId>
   <artifactId>HW_Selenium_Pt1</artifactId>
   <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-  <name>HW_Selenium_Pt1</name>
+    <name>HW_Selenium_Pt1</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,7 +38,11 @@
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>7.4.0</version>
-      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
     </dependency>
   </dependencies>
 
