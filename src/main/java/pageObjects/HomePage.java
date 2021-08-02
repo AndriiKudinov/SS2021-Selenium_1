@@ -56,12 +56,6 @@ public class HomePage extends AbstractPage {
         return new BlogPage();
     }
 
-//    public FAQPage openFAQPage() {
-//        getElement(FAQPageButton).click();
-//        LOG.info("Open 'FAQ' page.");
-//        return new FAQPage();
-//    }
-
     public void verifyUserIsLoggedIn(){
         Assert.assertTrue(isUserNameDisplayed(),"User is not logged in");
     }

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
@@ -16,7 +17,13 @@ public class AbstractPage {
 
     private WebDriverWait wait =  new WebDriverWait(DriverFactory.getDriver(), 10);
 
+    protected final static SoftAssert softAssert = new SoftAssert();
+
     AbstractPage() {
+    }
+
+    public void softAssertAll() {
+        softAssert.assertAll();
     }
 
     void  proceedToPage(final String url) {

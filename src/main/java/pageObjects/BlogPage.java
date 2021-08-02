@@ -2,21 +2,16 @@ package pageObjects;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import org.testng.asserts.SoftAssert;
 
 public class BlogPage extends AbstractPage{
     private static final Logger LOG = Logger.getLogger(BlogPage.class);
-    private final SoftAssert softAssert = new SoftAssert();
+
     private final By newsLink = By.xpath("//span[@class='ng-binding' and contains(text(), 'NEWS')]");
     private final By realStoriesLink = By.xpath("//span[@class='ng-binding' and contains(text(), 'REAL STORIES')]");
     private final By materialsLink = By.xpath("//span[@class='ng-binding' and contains(text(), 'MATERIALS')]");
     private final By hardSkillsLink = By.xpath("//span[@class='ng-binding' and contains(text(), 'HARD SKILLS')]");
     private final By softSkillsLink = By.xpath("//span[@class='ng-binding' and contains(text(), 'SOFT SKILLS')]");
     private final By eventsLink = By.xpath("//span[@class='ng-binding' and contains(text(), 'EVENTS')]");
-
-    public void softAssertAll() {
-        softAssert.assertAll();
-    }
 
     public boolean isNewsLinkDisplayed(){
         boolean isDisplayed = getElement(newsLink).isDisplayed();

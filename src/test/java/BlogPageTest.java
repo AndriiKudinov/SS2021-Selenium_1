@@ -1,3 +1,4 @@
+import consts.Constants;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 
@@ -7,9 +8,9 @@ public class BlogPageTest extends BaseTest{
         new HomePage()
                 .proceedToHomePage()
                 .clickSignInButton()
-                .enterEmail("ivanhorintest@gmail.com")
+                .enterEmail(Constants.LogConfigs.EMAIL)
                 .clickContinueButton()
-                .enterPassword("ivanhorintestPassword")
+                .enterPassword(Constants.LogConfigs.PASSWORD)
                 .clickSignInButton()
                 .openBlogPage()
                 .verifyNewsLinkDisplayed()

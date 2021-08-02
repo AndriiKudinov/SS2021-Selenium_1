@@ -13,12 +13,12 @@ public class TrainingListPage extends AbstractPage{
     private static final Logger LOG = Logger.getLogger(HomePage.class);
     private final By searchInput = By.xpath("//input[@name='training-filter-input']");
     private final By bySkillsButton = By.xpath("//div[@class='drop-down-choose__header']//div[contains(text(), 'By skills')]");
-    private final By javaSkillCheckbox = By.xpath("//ul[@class='location__cities-list-cities location__cities-list-skills']//li[16]//label");
-    private final By rubySkillCheckbox = By.xpath("//ul[@class='location__cities-list-cities location__cities-list-skills']//li[23]//label");
+    private final By javaSkillCheckbox = By.xpath("//ul[@class='location__cities-list-cities location__cities-list-skills']//label[normalize-space()='Java']");
+    private final By rubySkillCheckbox = By.xpath("//ul[@class='location__cities-list-cities location__cities-list-skills']//label[normalize-space()='Ruby']");
     private final By trainingImg = By.xpath("//div[@class='training-list__container training-list__desktop']//img[@class='training-icon']");
     private final By noTrainingsMessage = By.xpath("//div[@class='training-list__subscribe-text']//span[contains(text(), 'No training are available.')]");
     private final By ukraineLocationSelectButton = By.xpath("//div[contains(@class, 'location__not-active-label city-name ng-binding') and contains(text(), 'Ukraine')]");
-    private final By lvivCheckbox = By.xpath("//ul[@class='location__cities-list-cities ng-scope']/li[8]/label");
+    private final By lvivCheckbox = By.xpath("//ul[@class='location__cities-list-cities ng-scope']//label[normalize-space()='Lviv']");
     private final By locationLabels = By.xpath("//div[@class='training-list__container training-list__desktop']//*[contains(@class, 'training-item__location--text')]");
     private final By inputItemCloseIcon = By.xpath("//span[@class='filter-field__input-item-close-icon']");
 
@@ -47,11 +47,18 @@ public class TrainingListPage extends AbstractPage{
     }
 
     public boolean isAllItemsJava() {
-        boolean isAll = getElements(trainingImg)
-                .stream()
-                .allMatch((x) -> x.getAttribute("src").toLowerCase().contains("java"));
-        LOG.info(String.format("Is all items Java: %s", isAll));
-        return isAll;
+        List<WebElement> elements = getElements(trainingImg);
+        boolean isAll;
+        if(!elements.isEmpty()) {
+            isAll = elements
+                    .stream()
+                    .allMatch((x) -> x.getAttribute("src").toLowerCase().contains("java"));
+            LOG.info(String.format("Is all items Java: %s", isAll));
+            return isAll;
+        } else {
+            LOG.info("There is no elements at all");
+            return true;
+        }
     }
 
     public TrainingListPage checkRubyCheckbox() {

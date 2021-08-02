@@ -1,17 +1,18 @@
+import consts.Constants;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 import pageObjects.TrainingListPage;
 
 public class TrainingListTest extends BaseTest{
 
-    @Test(description = "Is all")
-    public void verifyIsAll() {
+    @Test(description = "Verify ‘Trainings’ search works properly with searching in ‘Skills’")
+    public void verifyTrainingsSearchWorksProperlyWithSkills() {
         new HomePage()
                 .proceedToHomePage()
                 .clickSignInButton()
-                .enterEmail("ivanhorintest@gmail.com")
+                .enterEmail(Constants.LogConfigs.EMAIL)
                 .clickContinueButton()
-                .enterPassword("ivanhorintestPassword")
+                .enterPassword(Constants.LogConfigs.PASSWORD)
                 .clickSignInButton()
                 .clickTrainingList()
                 .clickSearchInput()
@@ -30,9 +31,9 @@ public class TrainingListTest extends BaseTest{
         new HomePage()
                 .proceedToHomePage()
                 .clickSignInButton()
-                .enterEmail("ivanhorintest@gmail.com")
+                .enterEmail(Constants.LogConfigs.EMAIL)
                 .clickContinueButton()
-                .enterPassword("ivanhorintestPassword")
+                .enterPassword(Constants.LogConfigs.PASSWORD)
                 .clickSignInButton()
                 .clickTrainingList()
                 .closeAllCheckedLocations()
