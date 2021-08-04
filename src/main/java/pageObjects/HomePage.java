@@ -1,10 +1,9 @@
 package pageObjects;
 
+import consts.BusinessConfigs;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-
-import static consts.Constants.BusinessConfigs.HOME_PAGE_URL;
 
 public class HomePage extends AbstractPage {
 
@@ -36,8 +35,8 @@ public class HomePage extends AbstractPage {
     }
 
     public HomePage proceedToHomePage() {
-        proceedToPage(HOME_PAGE_URL);
-        LOG.info(String.format("Proceeded to '%s' URL.",HOME_PAGE_URL));
+        proceedToPage(BusinessConfigs.HOME_PAGE_URL.getUrl());
+        LOG.info(String.format("Proceeded to '%s' URL.", BusinessConfigs.HOME_PAGE_URL.getUrl()));
         return this;
     }
 
@@ -55,12 +54,4 @@ public class HomePage extends AbstractPage {
         LOG.info("Open 'Blog' page.");
         return new BlogPage();
     }
-
-    public void verifyUserIsLoggedIn(){
-        Assert.assertTrue(isUserNameDisplayed(),"User is not logged in");
-    }
-
-
-
-
 }

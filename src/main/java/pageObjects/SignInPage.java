@@ -2,7 +2,6 @@ package pageObjects;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 public class SignInPage extends AbstractPage{
@@ -18,6 +17,8 @@ public class SignInPage extends AbstractPage{
     private final By continueButton = By.id("kc-login-next");
 
     private final By loginFailedErrorMessage = By.xpath("//span[text()=\"We can't find user with such credentials.\"]");
+
+    private final By backButton = By.id("kc-login-prev");
 
     public SignInPage enterEmail(String email){
         getElement(mailInput).sendKeys(email);
@@ -37,9 +38,9 @@ public class SignInPage extends AbstractPage{
         return this;
     }
 
-    public  HomePage clickSignInButton(){
+    public HomePage clickSignInButton(){
         getElement(signInButton).click();
-        LOG.info("Sign in button clicked.");
+        LOG.info("Sign in button is clicked.");
         return new HomePage();
     }
 
@@ -76,21 +77,34 @@ public class SignInPage extends AbstractPage{
                 "'Login failed' error message is not displayed");
     }
 
+    public SignInPage clickBackButton() {
+        getElement(backButton).click();
+        LOG.info("'Back' button is clicked.");
+        return this;
+    }
+
+    public boolean isSameEmailPresent(String email) {
+        boolean isPresent = getElement(mailInput).getAttribute("value").equalsIgnoreCase(email);
+        LOG.info(String.format("Is previously entered email present : '%s'", isPresent));
+        return isPresent;
+    }
+
+    public SignInPage verifySameEmailPresent(String email) {
+        Assert.assertTrue(isSameEmailPresent(email),
+                "Previously entered email is not present");
+        return this;
+    }
+
     public boolean isAtSignPresent(String email) {
         boolean isPresent = email.contains("@");
         LOG.info(String.format("Does email contain @: '%s'", isPresent));
         return isPresent;
     }
 
-    public SignInPage verifyAtSignIsNotPresent(String email) {
-        Assert.assertFalse(isAtSignPresent(email),
-                "There is '@' in email");
-        return this;
-    }
 
-    public SignInPage verifyAtSignIsNotPresentSoftAssert(String email) {
-        softAssert.assertFalse(isAtSignPresent(email),
-                "There is '@' in email");
+    public SignInPage verifyAtSignIsPresentSoftAssert(String email) {
+        softAssert.assertTrue(isAtSignPresent(email),
+                "There is no '@' in email");
         return this;
     }
 
@@ -98,12 +112,6 @@ public class SignInPage extends AbstractPage{
         boolean isAtBeginning = ( email.charAt(0) == '@' );
         LOG.info(String.format("Is @ at the beginning: '%s'", isAtBeginning));
         return isAtBeginning;
-    }
-
-    public SignInPage verifyAtSignIsNotAtTheBeginning(String email) {
-        Assert.assertFalse(isAtSignAtTheBeginning(email),
-                "'@' at the begging of the email");
-        return this;
     }
 
     public SignInPage verifyAtSignIsNotAtTheBeginningSoftAssert(String email) {
@@ -118,15 +126,9 @@ public class SignInPage extends AbstractPage{
         return isPresent;
     }
 
-    public SignInPage verifyDotSymbolIsNotPresent(String email) {
-        Assert.assertFalse(isDotSymbolPresent(email),
-                "Dot symbol is present");
-        return this;
-    }
-
-    public SignInPage verifyDotSymbolIsNotPresentSoftAssert(String email) {
-        softAssert.assertFalse(isDotSymbolPresent(email),
-                "Dot symbol is present");
+    public SignInPage verifyDotSymbolIsPresentSoftAssert(String email) {
+        softAssert.assertTrue(isDotSymbolPresent(email),
+                "Dot symbol is not present");
         return this;
     }
 
@@ -137,15 +139,9 @@ public class SignInPage extends AbstractPage{
         return isEqualOrLessThen64;
     }
 
-    public SignInPage verifyRecipientNameNotEqualOrLessThen64(String email) {
-        Assert.assertFalse(isRecipientNameMax64Characters(email),
-                "Recipient name is equal or less then 64 characters");
-        return this;
-    }
-
-    public SignInPage verifyRecipientNameNotEqualOrLessThen64SoftAssert(String email) {
-        softAssert.assertFalse(isRecipientNameMax64Characters(email),
-                "Recipient name is equal or less then 64 characters");
+    public SignInPage verifyRecipientNameEqualsOrLessThen64SoftAssert(String email) {
+        softAssert.assertTrue(isRecipientNameMax64Characters(email),
+                "Recipient name is not equal or less then 64 characters");
         return this;
     }
 
@@ -161,15 +157,9 @@ public class SignInPage extends AbstractPage{
         return isMin2Max10;
     }
 
-    public SignInPage verifyTopLevelDomainNotMin2Max10(String email) {
-        Assert.assertFalse(isTopLevelDomainMin2Max10(email),
-                "Top-level-domain is in 2-10 range of characters");
-        return this;
-    }
-
-    public SignInPage verifyTopLevelDomainNotMin2Max10SoftAssert(String email) {
-        softAssert.assertFalse(isTopLevelDomainMin2Max10(email),
-                "Top-level-domain is in 2-10 range of characters");
+    public SignInPage verifyTopLevelDomainMin2Max10SoftAssert(String email) {
+        softAssert.assertTrue(isTopLevelDomainMin2Max10(email),
+                "Top-level-domain is not in 2-10 range of characters");
         return this;
     }
 }

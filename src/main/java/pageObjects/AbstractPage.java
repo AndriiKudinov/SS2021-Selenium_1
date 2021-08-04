@@ -1,5 +1,6 @@
 package pageObjects;
 
+import consts.UtilityConfigs;
 import driver.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class AbstractPage {
 
-    private WebDriverWait wait =  new WebDriverWait(DriverFactory.getDriver(), 10);
+    private WebDriverWait wait =  new WebDriverWait(DriverFactory.getDriver(), UtilityConfigs.IMPLICITLY_WAIT_VALUE.getValue());
 
     protected final static SoftAssert softAssert = new SoftAssert();
 

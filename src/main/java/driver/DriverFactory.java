@@ -1,39 +1,53 @@
 package driver;
 
-import consts.Constants;
+import consts.BrowserDriverConfigs;
+import consts.UtilityConfigs;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 public abstract class DriverFactory {
 
+    private static final Logger LOG = Logger.getLogger(DriverFactory.class);
+
     private static WebDriver webDriver;
 
-    protected void initDriver(final String browserName) {
+    private DriverFactory() {}
 
-        if (Constants.DriverConfigs.CHROME_NAME.equalsIgnoreCase(browserName)) {
-            System.setProperty(Constants.DriverConfigs.CHROME_NAME, Constants.DriverConfigs.CHROME_DRIVER_LOCATION);
-            webDriver = new ChromeDriver();
-        } else if (Constants.DriverConfigs.FIREFOX_NAME.equalsIgnoreCase(browserName)) {
-            System.setProperty(Constants.DriverConfigs.FIREFOX_NAME, Constants.DriverConfigs.FIREFOX_DRIVER_LOCATION);
-            webDriver = new FirefoxDriver();
-        } else if (Constants.DriverConfigs.EDGE_NAME.equalsIgnoreCase(browserName)) {
-            System.setProperty(Constants.DriverConfigs.EDGE_NAME, Constants.DriverConfigs.EDGE_DRIVER_LOCATION);
-            webDriver = new EdgeDriver();
+    public static void initDriver(BrowserDriverConfigs browser) {
+        System.setProperty(browser.getName(), browser.getDriverLocation());
+
+        switch (browser) {
+            case CHROME:
+                webDriver = new ChromeDriver();
+                break;
+            case FIREFOX:
+                webDriver = new FirefoxDriver();
+                break;
+            case EDGE:
+                webDriver = new EdgeDriver();
+                break;
+            default:
+                throw new RuntimeException("Browser is not supported");
         }
+
         webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(Constants.DriverConfigs.IMPLICITLY_WAIT_VALUE, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(UtilityConfigs.IMPLICITLY_WAIT_VALUE.getValue(), TimeUnit.SECONDS);
     }
 
     public static WebDriver getDriver() {
+        if(webDriver == null) {
+            LOG.info("You are trying to access not existing web driver. Default web driver created.");
+            initDriver(BrowserDriverConfigs.CHROME);
+        }
         return webDriver;
     }
 
-    protected void quitDriver() {
+    public static void quitDriver() {
         if (webDriver != null) {
             webDriver.quit();
             webDriver=null;
