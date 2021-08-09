@@ -1,5 +1,6 @@
 package driver;
 
+import Exceptions.BrowserIsNotSupportedException;
 import consts.BrowserDriverConfigs;
 import consts.UtilityConfigs;
 import org.apache.log4j.Logger;
@@ -19,6 +20,9 @@ public abstract class DriverFactory {
     private DriverFactory() {}
 
     public static void initDriver(BrowserDriverConfigs browser) {
+        if(webDriver != null) {
+            return;
+        }
         System.setProperty(browser.getName(), browser.getDriverLocation());
 
         switch (browser) {
@@ -32,7 +36,7 @@ public abstract class DriverFactory {
                 webDriver = new EdgeDriver();
                 break;
             default:
-                throw new RuntimeException("Browser is not supported");
+                throw new BrowserIsNotSupportedException("Browser is not supported: " + browser.getName());
         }
 
         webDriver.manage().window().maximize();

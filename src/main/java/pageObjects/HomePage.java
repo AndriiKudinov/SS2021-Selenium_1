@@ -28,7 +28,7 @@ public class HomePage extends AbstractPage {
         return new SignInPage();
     }
 
-    public TrainingListPage clickTrainingList() {
+    public TrainingListPage clickTrainingListPageButton() {
         getElement(trainingListPageButton).click();
         LOG.info("'Training list' button clicked");
         return new TrainingListPage();
@@ -49,7 +49,7 @@ public class HomePage extends AbstractPage {
         return getElement(topRightCornerUserNameElement).getText();
     }
 
-    public BlogPage openBlogPage() {
+    public BlogPage clickBlogPageButton() {
         getElement(blogPageButton).click();
         LOG.info("Open 'Blog' page.");
         return new BlogPage();

@@ -1,39 +1,42 @@
 import consts.Cities;
-import consts.LoginData;
 import consts.ProgrammingLanguages;
+import dataProvider.DataProviders;
 import org.testng.annotations.Test;
 import pageObjects.BusinessObjects.HomeBO;
-import pageObjects.HomePage;
-import pageObjects.TrainingListPage;
+
+import java.util.List;
 
 public class TrainingListTest extends BaseTest{
 
     @Test(description = "Verify ‘Trainings’ search works properly with searching in ‘Skills’")
     public void verifyTrainingsSearchWorksProperlyWithSkills() {
         new HomeBO()
-                .login();
-        new HomePage()
-                .clickTrainingList()
+                .proceedToHomePage()
+                .clickSignInButton()
+                .login()
+                .clickTrainingListPageButton()
                 .clickSearchInput()
                 .clickBySkillsButton()
                 .clickProgrammingLanguageCheckbox(ProgrammingLanguages.JAVA)
-                .verifyAllItemsJava()
+                .verifyLanguageNameIsIncludedInAllItems(ProgrammingLanguages.JAVA.getName())
                 .clickProgrammingLanguageCheckbox(ProgrammingLanguages.JAVA)
                 .clickProgrammingLanguageCheckbox(ProgrammingLanguages.RUBY)
                 .verifyNoTrainingMessageDisplayed();
 
     }
 
-    @Test(description = "Verify ‘Trainings’ search works properly with searching in ‘Locations’")
-    public void verifySearchWorksWithLocations() {
+    @Test(description = "Verify ‘Trainings’ search works properly with searching in ‘Locations’",
+            dataProvider = "LocationsData", dataProviderClass = DataProviders.class)
+    public void verifySearchWorksWithLocations(Cities city, List<String> locations) {
         new HomeBO()
-                .login();
-        new HomePage()
-                .clickTrainingList()
+                .proceedToHomePage()
+                .clickSignInButton()
+                .login()
+                .clickTrainingListPageButton()
                 .closeAllCheckedLocations()
                 .clickSearchInput()
                 .clickUkraineSelectButton()
-                .clickCityCheckbox(Cities.LVIV)
-                .verifyResultsAreUkraineAndMultiLocationOnly();
+                .clickCityCheckbox(city)
+                .verifyOnlySelectedLocationsContainedInResults(locations);
     }
 }

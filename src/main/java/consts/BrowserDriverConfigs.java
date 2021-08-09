@@ -1,12 +1,11 @@
 package consts;
 
-import utils.ExcelUtils;
+import utils.PropertyUtils;
 
 public enum BrowserDriverConfigs {
-
-    CHROME(ExcelUtils.getStringValue("DriverConfigs", 0), ExcelUtils.getStringValue("DriverConfigs", 3)),
-    FIREFOX(ExcelUtils.getStringValue("DriverConfigs", 1), ExcelUtils.getStringValue("DriverConfigs", 4)),
-    EDGE(ExcelUtils.getStringValue("DriverConfigs", 2), ExcelUtils.getStringValue("DriverConfigs", 5));
+    CHROME(PropertyUtils.getStringProperty("CHROME_NAME"), PropertyUtils.getStringProperty("CHROME_DRIVER_LOCATION")),
+    FIREFOX(PropertyUtils.getStringProperty("FIREFOX_NAME"), PropertyUtils.getStringProperty("FIREFOX_DRIVER_LOCATION")),
+    EDGE(PropertyUtils.getStringProperty("EDGE_NAME"), PropertyUtils.getStringProperty("EDGE_DRIVER_LOCATION"));
 
     private final String name;
     private final String driverLocation;

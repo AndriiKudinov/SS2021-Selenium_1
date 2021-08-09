@@ -1,9 +1,14 @@
 package dataProvider;
 
+import consts.Cities;
+import consts.Locations;
 import consts.LoginData;
 import org.testng.annotations.DataProvider;
 
-public class LoginDataProvider {
+import java.util.Arrays;
+import java.util.Collections;
+
+public class DataProviders {
 
     @DataProvider(name = "LoginData")
     public static Object[][] getLoginData() {
@@ -14,4 +19,12 @@ public class LoginDataProvider {
                 {LoginData.CHAR64_EMAIL.getValue()},
         };
     }
+
+    @DataProvider(name = "LocationsData")
+    public static Object[][] getLocationsData() {
+        return new Object[][]{
+                {Cities.LVIV, Arrays.asList(Locations.UKRAINE.getName(), Locations.MULTI_LOCATION.getName())}
+        };
+    }
+
 }

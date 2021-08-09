@@ -10,7 +10,8 @@ public enum LoginData {
     CHAR1_EMAIL(ExcelUtils.getStringValue("LoginConfigs", 3)),
     CHAR2_EMAIL(ExcelUtils.getStringValue("LoginConfigs", 4)),
     CHAR63_EMAIL(ExcelUtils.getStringValue("LoginConfigs", 5)),
-    CHAR64_EMAIL(ExcelUtils.getStringValue("LoginConfigs", 6));
+    CHAR64_EMAIL(ExcelUtils.getStringValue("LoginConfigs", 6)),
+    INCORRECT_PASSWORD(ExcelUtils.getStringValue("LoginConfigs", 7));
 
     private final String value;
     LoginData(String value) {

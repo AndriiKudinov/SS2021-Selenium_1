@@ -18,13 +18,7 @@ public class AbstractPage {
 
     private WebDriverWait wait =  new WebDriverWait(DriverFactory.getDriver(), UtilityConfigs.IMPLICITLY_WAIT_VALUE.getValue());
 
-    protected final static SoftAssert softAssert = new SoftAssert();
-
     AbstractPage() {
-    }
-
-    public void softAssertAll() {
-        softAssert.assertAll();
     }
 
     void  proceedToPage(final String url) {

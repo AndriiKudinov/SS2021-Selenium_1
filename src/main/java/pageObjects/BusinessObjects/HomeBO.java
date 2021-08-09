@@ -1,6 +1,5 @@
 package pageObjects.BusinessObjects;
 
-import consts.LoginData;
 import org.testng.Assert;
 import pageObjects.HomePage;
 
@@ -11,15 +10,24 @@ public class HomeBO {
         homePage = new HomePage();
     }
 
-    public HomeBO login() {
-        homePage
-                .proceedToHomePage()
-                .clickSignInButton()
-                .enterEmail(LoginData.EMAIL.getValue())
-                .clickContinueButton()
-                .enterPassword(LoginData.PASSWORD.getValue())
-                .clickSignInButton();
+    public HomeBO proceedToHomePage() {
+        homePage.proceedToHomePage();
         return this;
+    }
+
+    public TrainingListBO clickTrainingListPageButton() {
+        homePage.clickTrainingListPageButton();
+        return new TrainingListBO();
+    }
+
+    public SignInBO clickSignInButton() {
+        homePage.clickSignInButton();
+        return new SignInBO();
+    }
+
+    public BlogBO clickBlogPageButton() {
+        homePage.clickBlogPageButton();
+        return new BlogBO();
     }
 
     public HomeBO verifyUserIsLoggedIn(){

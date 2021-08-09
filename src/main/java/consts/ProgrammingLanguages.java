@@ -3,12 +3,12 @@ package consts;
 public enum ProgrammingLanguages {
     JAVA("Java"), RUBY("Ruby");
 
-    private final String value;
-    ProgrammingLanguages(String value) {
-        this.value = value;
+    private final String name;
+    ProgrammingLanguages(String name) {
+        this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
 }
